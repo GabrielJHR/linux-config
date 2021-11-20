@@ -2,6 +2,7 @@
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 
+xcompmgr &
 nitrogen --restore
 $HOME/.config/polybar/launch.sh --forest
 

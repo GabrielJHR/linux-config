@@ -128,16 +128,16 @@ super + {Left,Down,Up,Right}
 #
 
 Print
-	sleep 1 && /usr/bin/scrot -s ~/Imágenes/scrots/'scrot_%Y%m%d-%H%M%S_$wx$h.png' -e 'printf $f|xclip'
+	sleep 1 && scrot -s ~/Pictures/scrot/'scrot_%Y%m%d-%H%M%S_$wx$h.png' -e 'printf $f|xclip'
 
 shift + Print
-	sleep 1 && /usr/bin/scrot -s ~/Imágenes/scrots/'scrot_%Y%m%d-%H%M%S_$wx$h.png' -e 'curl -F c=@$f https://ptpb.pw/?u=1|xclip'
+	sleep 1 && scrot -s ~/Pictures/scrot/'scrot_%Y%m%d-%H%M%S_$wx$h.png' -e 'curl -F c=@$f https://ptpb.pw/?u=1|xclip'
 
 ctrl + shift + Print
-	sleep 1 && /usr/bin/scrot ~/Imágenes/scrots/'scrot_%Y%m%d-%H%M%S_$wx$h.png' -e 'printf $f|xclip'
+	sleep 1 && scrot ~/Pictures/scrot/'scrot_%Y%m%d-%H%M%S_$wx$h.png' -e 'printf $f|xclip'
 
 mode_switch + Print
-	sleep 1 && /usr/bin/scrot -s ~/Imágenes/scrots/'scrot_%Y%m%d-%H%M%S_$wx$h.png' -e 'lp -d Lexmark_International_Lexmark_CS317dn_ -o fit-to-page -o media=A4 $f'
+	sleep 1 && scrot -s ~/Pictures/scrot/'scrot_%Y%m%d-%H%M%S_$wx$h.png' -e 'lp -d Lexmark_International_Lexmark_CS317dn_ -o fit-to-page -o media=A4 $f'
 
 # Change keyboard language
 super + z
@@ -159,6 +159,18 @@ XF86Audio{Next,Prev,Play,Stop}
 	playerctl {next,previous,play-pause,stop}
 
 
-# launch vifm
-super + shift + Return
-    {gnome-terminal -e vifm}
+
+
+# launch applications
+
+#Youtube Music
+ctrl + alt + m
+	google-chrome-stable --app-id=cinhimbnkkaeohfgghhklpknlkffjgod
+
+#Google Chrome
+ctrl + alt + e
+	google-chrome-stable
+
+#Dijo Habit Tracker
+ctrl + alt + h
+	gnome-terminal -e dijo 
