@@ -11,7 +11,7 @@ super + shift + Return
 
 # program launcher
 super + @space
-	rofi -show drun
+	rofi -show drun -display-drun " "
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
@@ -69,8 +69,12 @@ super + {_,shift + }c
 	bspc node -f {next,prev}.local.!hidden.window
 
 # focus the next/previous desktop in the current monitor
+# super + bracket{left,right}
+	# bspc desktop -f {prev,next}.local
+
+# focus the next/previous desktop active in the current monitor
 super + bracket{left,right}
-	bspc desktop -f {prev,next}.local
+	bspc desktop -f {prev.occupied, next.occupied}.local
 
 # focus the last node/desktop
 super + {grave,Tab}
@@ -174,3 +178,6 @@ ctrl + alt + e
 #Dijo Habit Tracker
 ctrl + alt + h
 	gnome-terminal -e dijo 
+
+ctrl + alt + n
+	google-chrome-stable https://www.notion.so/
