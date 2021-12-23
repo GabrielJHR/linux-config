@@ -3,17 +3,14 @@ Plug 'vim-airline/vim-airline'
 
 Plug 'lervag/vimtex'
 
-Plug 'ryanoasis/vim-devicons'
-
-Plug 'ryanoasis/vim-devicons'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 Plug 'sheerun/vim-polyglot'
 
 Plug 'mattn/emmet-vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-Plug 'vim-airline/vim-airline-themes'
 
 Plug 'scrooloose/nerdtree'
 
@@ -37,8 +34,49 @@ Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 
 call plug#end()
 
+" FZF config
+nnoremap <silent><leader><space> :Files<CR>
+nnoremap <silent><leader>b :Buffers<CR>
+nnoremap <silent><leader>B :Windows<CR>
+nnoremap <silent><leader>; :BLines<CR>
+nnoremap <silent><leader>o :BTags<CR>
+nnoremap <silent><leader>O :Tags<CR>
+nnoremap <silent><leader>h :History<CR>
+nnoremap <silent><leader>/ :execute 'Ag ' . input('Ag/')<CR>
+nnoremap <silent><leader>. :AgIn 
+
+nnoremap <silent>K :call SearchWordWithAg()<CR>
+vnoremap <silent>K :call SearchVisualSelectionWithAg()<CR>
+nnoremap <silent><leader>gl :Commits<CR>
+nnoremap <silent><leader>ga :BCommits<CR>
+nnoremap <silent><leader>ft :Filetypes<CR>
+
+imap <C-x><C-f> <plug>(fzf-complete-file-ag)
+imap <C-x><C-l> <plug>(fzf-complete-line)
+
+function! SearchWordWithAg()
+  execute 'Ag' expand('<cword>')
+endfunction
+
+function! SearchVisualSelectionWithAg() range
+  let old_reg = getreg('"')
+  let old_regtype = getregtype('"')
+  let old_clipboard = &clipboard
+  set clipboard&
+  normal! ""gvy
+  let selection = getreg('"')
+  call setreg('"', old_reg, old_regtype)
+  let &clipboard = old_clipboard
+  execute 'Ag' selection
+endfunction
+
+function! SearchWithAgInDirectory(...)
+  call fzf#vim#ag(join(a:000[1:], ' '), extend({'dir': a:1}, g:fzf#vim#default_layout))
+endfunction
+command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
+
 " mouse
-" set mouse=a
+set mouse=a
 
 " Icons
 set encoding=UTF-8
@@ -62,28 +100,27 @@ let g:airline_powerline_fonts = 1
 set noshowmode  " No mostrar el modo actual (ya lo muestra la barra de estado)
 
 
-
 "#######THEMES######
 set tabstop=4
 set termguicolors
 
 " ayu
-colorscheme ayu
 " set background = "dark"
 " let ayucolor="light"  " for light version of theme
-let ayucolor="mirage" " for mirage version of theme
 " let ayucolor="dark"   " for dark version of theme
+" let ayucolor="mirage" " for mirage version of theme
+" colorscheme ayu
 
 " one
 " let g:airline_theme='one'
-" colorscheme one
 " set background=dark " for the dark version
 " set background=light " for the light version
+" colorscheme one
 
 " material
 " let g:material_theme_style = 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker' | 'default-community' | 'palenight-community' | 'ocean-community' | 'lighter-community' | 'darker-community'
-" colorscheme material
-" let g:material_theme_style = 'palenight'
+let g:material_theme_style = 'palenight'
+colorscheme material
 
 " dracula
 " packadd! dracula
@@ -212,14 +249,14 @@ xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
+" if has('nvim-0.4.0') || has('patch-8.2.0750')
+  " nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  " nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  " inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  " inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  " vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  " vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+" endif
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
@@ -265,7 +302,7 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 "######MAP CONFIGURATIONS#######
 
-let mapleader = "," " map leader to comma
+let mapleader = ","
 
 
 
@@ -288,22 +325,21 @@ vnoremap <F4>a "hy:%s/<C-r>h/<C-r>h/gc<left><left><left>
 
 
 "NerdTree map
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <F5> :NERDTreeToggle<CR>
-nnoremap <C-t> :tabnew<CR>
-nnoremap <C-Left> :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
-tnoremap <C-Left> <C-w>:tabprevious<CR>
-tnoremap <C-Right> <C-w>:tabnext<CR>
-nnoremap <silent> <A-Left> :tabm -1<CR>
-nnoremap <silent> <A-Right> :tabm +1<CR>
+nnoremap <silent><leader>n :NERDTreeFocus<CR>
+nnoremap <silent><C-n> :NERDTree<CR>
+nnoremap <silent><F5> :NERDTreeToggle<CR>
+nnoremap <silent><C-t> :tabnew<CR>
+nnoremap <silent><C-Left> :tabprevious<CR>
+nnoremap <silent><C-Right> :tabnext<CR>
+tnoremap <silent><C-Left> <C-w>:tabprevious<CR>
+tnoremap <silent><C-Right> <C-w>:tabnext<CR>
+nnoremap <silent><silent> <A-Left> :tabm -1<CR>
+nnoremap <silent><silent> <A-Right> :tabm +1<CR>
 
 "vim map
 nnoremap <leader>qq :q!<CR>
-nnoremap <C-q> :q<CR>
-nnoremap <C-s> :w<CR>
-nnoremap <leader>wq :wq<CR>
+nnoremap <leader>q :q<CR>
+nnoremap <leader>w :w<CR>
 
 
 "######CONFIGURATION######
