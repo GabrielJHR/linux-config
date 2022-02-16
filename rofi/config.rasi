@@ -120,3 +120,9 @@
     margin:     0px 0.3em 0em 0em ;
     text-color: @foreground;
 }
+//@theme "/home/gabriel/.local/share/rofi/themes/onedark.rasi"
+//@theme "/home/gabriel/.local/share/rofi/themes/launchpad.rasi"
+//@theme "/home/gabriel/.local/share/rofi/themes/onedark.rasi"
+//@theme "/home/gabriel/.local/share/rofi/themes/spotlight.rasi"
+//@theme "/home/gabriel/.local/share/rofi/themes/onedark.rasi"
+@theme "/home/gabriel/.local/share/rofi/themes/launchpad.rasi"

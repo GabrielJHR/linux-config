@@ -4,14 +4,14 @@
 
 # terminal emulator
 super + Return
-	gnome-terminal
+	alacritty
 
 super + shift + Return
-	gnome-terminal -e vifm $HOME
+	alacritty -e vifm
 
 # program launcher
 super + @space
-	rofi -show drun -display-drun " "
+	rofi -show drun -show-icons -display-drun " "
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd

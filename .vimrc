@@ -1,5 +1,7 @@
 call plug#begin('~/.vim/plugged')
-Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline'
+
+Plug 'tribela/vim-transparent'
 
 Plug 'lervag/vimtex'
 
@@ -28,7 +30,11 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 
 Plug 'ayu-theme/ayu-vim'
 
+Plug 'rafalbromirski/vim-aurora'
+
 Plug 'rakr/vim-one'
+
+Plug 'sickill/vim-monokai'
 
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 
@@ -79,7 +85,7 @@ command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
 set mouse=a
 
 " Icons
-set encoding=UTF-8
+" set encoding=UTF-8
 
 "NERDComenter
 let g:NERDSpaceDelims = 1  " Agregar un espacio después del delimitador del comentario
@@ -97,12 +103,13 @@ let g:airline#extensions#tabline#fnamemod = ':t'  " Mostrar sólo el nombre del 
 " Cargar fuente Powerline y símbolos (ver nota)
 let g:airline_powerline_fonts = 1
 
-set noshowmode  " No mostrar el modo actual (ya lo muestra la barra de estado)
-
-
+set cmdheight=1
+" set noshowmode
 "#######THEMES######
 set tabstop=4
 set termguicolors
+
+" colorscheme atom-dark
 
 " ayu
 " set background = "dark"
@@ -110,6 +117,14 @@ set termguicolors
 " let ayucolor="dark"   " for dark version of theme
 " let ayucolor="mirage" " for mirage version of theme
 " colorscheme ayu
+
+" monokai
+" syntax enable
+" colorscheme monokai
+
+" vim aurora
+" set background=dark
+" colorscheme aurora
 
 " one
 " let g:airline_theme='one'
@@ -139,9 +154,6 @@ set hidden
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
-
-" Give more space for displaying messages.
-set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
