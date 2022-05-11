@@ -1,5 +1,8 @@
 call plug#begin('~/.vim/plugged')
-" Plug 'vim-airline/vim-airline'
+
+Plug 'tpope/vim-fugitive'
+
+Plug 'vim-airline/vim-airline'
 
 Plug 'tribela/vim-transparent'
 
@@ -39,6 +42,11 @@ Plug 'sickill/vim-monokai'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 
 call plug#end()
+
+" VimDiff
+if &diff
+  highlight! link DiffText MatchParen
+endif
 
 " FZF config
 nnoremap <silent><leader><space> :Files<CR>
@@ -85,7 +93,7 @@ command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
 set mouse=a
 
 " Icons
-" set encoding=UTF-8
+set encoding=UTF-8
 
 "NERDComenter
 let g:NERDSpaceDelims = 1  " Agregar un espacio después del delimitador del comentario
@@ -97,14 +105,15 @@ let g:indentLine_fileTypeExclude = ['text', 'sh', 'help', 'tablinerminal']
 let g:indentLine_bufNameExclude = ['NERD_tree.*', 'term:.*']
 
 "AIRLINE
-let g:airline#extensions#tabline#enabled = 1  " Mostrar buffers abiertos (como pestañas)
+" let g:airline#extensions#tabline#enabled = 1  " Mostrar buffers abiertos (como pestañas)
 let g:airline#extensions#tabline#fnamemod = ':t'  " Mostrar sólo el nombre del archivo
+let g:airline#extensions#branch#enabled = 1
 
 " Cargar fuente Powerline y símbolos (ver nota)
 let g:airline_powerline_fonts = 1
 
 set cmdheight=1
-" set noshowmode
+set noshowmode
 "#######THEMES######
 set tabstop=4
 set termguicolors
